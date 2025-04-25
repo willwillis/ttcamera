@@ -1,0 +1,38 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "ttcamera",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-04-24",
+	"compatibility_flags": ["nodejs_compat"],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": "./public"
+	},
+	"observability": {
+		"enabled": true
+	},
+	
+	/**
+	 * Environment Variables
+	 * The OPENAI_API_KEY is stored in .dev.vars for local development 
+	 * and as a secret for production
+	 */
+	"vars": {
+		"APP_ENV": "production"
+	},
+	
+	/**
+	 * R2 Storage Configuration 
+	 * This binds an R2 bucket to store and serve the time travel images
+	 */
+	"r2_buckets": [
+		{
+			"binding": "IMAGES_BUCKET",
+			"bucket_name": "ttcamera"
+		}
+	]
+}
